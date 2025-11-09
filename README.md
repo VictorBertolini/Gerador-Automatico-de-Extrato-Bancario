@@ -64,18 +64,18 @@ Reader → Formatter → Mapper → Domain → Repository → Excel
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seuusuario/cashflow-generator.git```
+   []=dknasdoasiodjasdmaskldnsajldnbsajkldanbdjlsndasjndaçsndsadnakjd
    
 2. Abra o projeto em sua IDE preferida (IntelliJ, Eclipse ou VSCode com extensão Java).
 
 3. Coloque o extrato CSV dentro da pasta:
    ```bash
-     /data/```
+     /data/
 
 4. Na classe principal (com.bertolini.app.Main) coloque o nome do arquivo do extrato em FILE_NAME:
    Ex:
    ```java
-   String FILE_NAME = "relatorio.csv";```
+   String FILE_NAME = "relatorio.csv";
 
 4. Execute a classe principal
 
@@ -84,10 +84,9 @@ Reader → Formatter → Mapper → Domain → Repository → Excel
 
 ---
 
-Estrutura de pastas
+## Estrutura de pastas
 
 ```shell
-  $ tree
 src/
  └── main/java/com/bertolini/
       ├── core/                 # Entidades e casos de uso do domínio
@@ -112,7 +111,7 @@ src/
 
 ---
 
- Tecnologias utilizadas
+## Tecnologias utilizadas
 | Tecnologia                                    | Função                                      |
 | --------------------------------------------- | ------------------------------------------- |
 |  **Java 25**                                | Linguagem base                              |
