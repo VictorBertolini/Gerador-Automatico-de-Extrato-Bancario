@@ -64,7 +64,7 @@ Reader → Formatter → Mapper → Domain → Repository → Excel
 
 1. Clone o repositório:
    ```bash
-   []=dknasdoasiodjasdmaskldnsajldnbsajkldanbdjlsndasjndaçsndsadnakjd
+   git clone https://github.com/VictorBertolini/Gerador-Automatico-de-Extrato-Bancario.git
    
 2. Abra o projeto em sua IDE preferida (IntelliJ, Eclipse ou VSCode com extensão Java).
 
@@ -75,7 +75,7 @@ Reader → Formatter → Mapper → Domain → Repository → Excel
 4. Na classe principal (com.bertolini.app.Main) coloque o nome do arquivo do extrato em FILE_NAME:
    Ex:
    ```java
-   String FILE_NAME = "relatorio.csv";
+   String FILE_NAME = "BankStatement.csv";
 
 4. Execute a classe principal
 
@@ -83,7 +83,14 @@ Reader → Formatter → Mapper → Domain → Repository → Excel
    InfinitePay_CashFlow.xlsx
 
 ---
+### Resultado no Excel:
+![Resultado Excel](https://github.com/VictorBertolini/Gerador-Automatico-de-Extrato-Bancario/blob/main/images/Excel%20Result.png)
 
+
+
+
+
+--- 
 ## Estrutura de pastas
 
 ```shell
@@ -139,6 +146,8 @@ Desenvolvido por **Victor Bertolini de Sousa**, estudante de Ciência da Computa
 Apaixonado por todas as etapas do desenvolvimento de soluções que auxiliem pessoas em problemas cotidianos.
 Iniciou esse projeto com fito de desenvolver suas habilidades de programação em um problema de maior escala, permitindo praticar conhecimentos de Clean Architecture, Clean Code, Design Patters e Java.
 
+[Linkedin](https://www.linkedin.com/in/victor-bertolini-de-sousa-6b8630394/)
+[GitHub](https://github.com/VictorBertolini)
 
 ## Licença
 
