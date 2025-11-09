@@ -1,6 +1,6 @@
 # Gerador Automático de Extrato Bancário 
 
-Um projeto em **Java 17** que lê extratos bancários, formata e processa os dados, e gera automaticamente uma planilha Excel profissional com o **fluxo de caixa completo**.
+Um projeto em **Java** que lê extratos bancários, formata, processa os dados, e gera automaticamente uma planilha Excel profissional com o **fluxo de caixa completo**.
 
 Construído com base nos princípios da **Clean Architecture**, o sistema é totalmente desacoplado para facilitar a adição de novos bancos e tipos de saída (como TXT, CSV, Excel ou banco de dados) sem alterar o núcleo do sistema.
 
@@ -8,7 +8,7 @@ Construído com base nos princípios da **Clean Architecture**, o sistema é tot
 
 ## Objetivo
 
-Automatizar o processo de leitura e consolidação de extratos bancários, sejam eles pequenos (pessoais) ou grandes (empresariais), transformando dados brutos em relatórios financeiros claros e bem formatados de forma rápida, segura e simples.
+Automatizar o processo de leitura e consolidação de extratos bancários, sejam eles pequenos (pessoais) ou grandes (empresariais), transformando dados brutos em relatórios financeiros claros e bem formatados de forma rápida, simples e segura.
 
 A aplicação:
 - Lê o extrato bancário fornecido.
@@ -84,39 +84,41 @@ Reader → Formatter → Mapper → Domain → Repository → Excel
 
 ---
 ## Notas 
-Há um 'BankStatement.csv' com dados fictícios, mas toda a formulação do extrato está de acordo com o gerado pela plataforma de serviços financeiros InfinitePay, o arquivo está para servir de testes e visualização do sistema em funcionamento. 
+- Há um 'BankStatement.csv' com dados fictícios, mas toda a formulação do extrato está de acordo com o gerado pela plataforma de serviços financeiros InfinitePay, o arquivo está para servir de testes e visualização do sistema em funcionamento. 
 ---
 ### Resultado no Excel:
+
 ![Resultado Excel](https://github.com/VictorBertolini/Gerador-Automatico-de-Extrato-Bancario/blob/main/images/Excel%20Result.png)
 
-
-
-
-
---- 
+---
 ## Estrutura de pastas
 
 ```shell
-src/
- └── main/java/com/bertolini/
-      ├── core/                 # Entidades e casos de uso do domínio
-      │    ├── domain/          # Transaction, TransactionSet, etc.
-      │    └── useCases/        # CreateTransactionCase, SaveAllTransactionsCase, etc.
-      │
-      ├── adapters/             # Adaptadores entre domínio e infraestrutura
-      │    ├── readers/         # Leitores de extratos bancários (InfinitePay, etc.)
-      │    ├── formatting/      # Formatadores de dados bancários brutos
-      │    ├── repositories/    # Repositórios concretos (Excel, TXT, etc.)
-      │    ├── controllers/     # Controladores que orquestram os casos de uso
-      │    ├── services/        # Serviços como o BankIntegrationService
-      │    └── dto/             # Objetos de transferência de dados (TransactionDTO)
-      │
-      ├── infrastructure/       # Implementações técnicas (Apache POI)
-      │    └── excel/           # Estilização, formatação e escrita em Excel
-      │
-      └── app/                  # Configuração e ponto de entrada
-           ├── AppConfig.java
-           └── Main.java
+CASHFLOW 2.0
+├── data/                   # Extratos bancários CSV de entrada
+└── src/
+    └── main/
+        └── java/
+            └── com/
+                └── bertolini/
+                     ├── adapters/              # Adaptadores entre domínio e infraestrutura
+                     │     ├── controllers/       # Controladores que orquestram os casos de uso
+                     │     ├── dto/               # Objetos de transferência de dados (TransactionDTO)
+                     │     ├── formatting/        # Formatadores de dados bancários (ex: InfinitePayFormatter)
+                     │     ├── mappers/           # Conversão entre DTOs e entidades do domínio
+                     │     ├── readers/           # Leitores de extratos bancários (ex: InfinitePayReader)
+                     │     │     └── infinitePay/   # Implementação específica para InfinitePay
+                     │     ├── repositories/      # Implementações de persistência
+                     │     │     └── excel/         # Repositório Excel + classes de estilização (Apache POI)
+                     │     └── services/          # Serviços de integração (ex: BankIntegrationService)
+                     ├── app/                   # Camada de aplicação (AppConfig e Main)
+                     └── core/                  # Núcleo da aplicação (Domínio e Casos de Uso)
+                          ├── domain/            # Entidades do domínio (Transaction, TransactionSet, etc.)
+                          │    └── entities/      # Classes de domínio puro
+                          └── useCases/          # Casos de uso da aplicação
+                               ├── reader/        # Leitura de extratos
+                               ├── repository/    # Persistência (ex: SaveAllTransactionsCase)
+                               └── transactions/  # Manipulação de transações (create/remove)
 ```
 
 ---
