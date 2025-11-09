@@ -6,7 +6,7 @@ Construído com base nos princípios da **Clean Architecture**, o sistema é tot
 
 ---
 
-## 🎯 Objetivo
+## Objetivo
 
 Automatizar o processo de leitura e consolidação de extratos bancários, sejam eles pequenos (pessoais) ou grandes (empresariais), transformando dados brutos em relatórios financeiros claros e bem formatados de forma rápida, segura e simples.
 
@@ -18,46 +18,47 @@ A aplicação:
 
 ---
 
-## ⚙️ Arquitetura
+## Arquitetura
 
 O sistema segue os princípios da **Clean Architecture**, garantindo separação de responsabilidades e facilidade de manutenção.
 
-### 🧱 Camadas principais
+### Camadas principais
 
 | Camada | Responsabilidade | Exemplos |
 |--------|------------------|-----------|
-| **Core (Domínio)** | Entidades e casos de uso principais | `Transaction`, `TransactionSet`, `SaveAllTransactionsCase` |
+| **Core (Domínio)** | Entidades | `Transaction`, `TransactionSet`, `TransactionBatch` |
+| **Use Cases** | Casos de Uso | `GetBankStatementDataCase`, `SaveAllTransactionsCase`, `SplitTransactionSetByMonthCase` |
 | **Adapters** | Conexão entre domínio e mundo externo | `ReaderController`, `DataFormatter`, `ExcelRepository` |
 | **Infrastructure** | Detalhes técnicos concretos | `ExcelSheetStyler`, `CellDecorator` |
 | **App** | Configuração e orquestração da aplicação | `AppConfig`, `Main` |
 
-### 🔄 Fluxo de dados
+### Fluxo de dados
 Reader → Formatter → Mapper → Domain → Repository → Excel
 
-1. O **Reader** lê o extrato bancário bruto (CSV).  
+1. O **Reader** lê o extrato bancário bruto.  
 2. O **Formatter** transforma as linhas em dados padronizados (DTO).  
 3. O **Mapper** converte para entidades do domínio.  
 4. O **Repository** salva as transações formatadas em um arquivo Excel.
 
 ---
 
-## 🧠 Princípios aplicados
+## Princípios aplicados
 
 - **Clean Architecture:** independência entre camadas e desacoplamento total.
 - **SOLID:** cada classe possui uma responsabilidade única e clara.
 - **Open/Closed Principle:** novos bancos e formatos podem ser adicionados sem alterar o núcleo.
 - **Dependency Inversion:** o domínio depende apenas de abstrações.
 - **DTO + Mapper Pattern:** conversão limpa entre camadas.
-- **Service Layer:** coordenação das operações complexas (`BankIntegrationService`).
+- **Padrão Facade** coordenação das operações complexas (`BankIntegrationService`).
 
 ---
 
-## 🚀 Como rodar o projeto
+##  Como rodar o projeto
 
 ### Pré-requisitos
-- ☕ **Java 17+**
-- 📘 **Apache POI** (para manipulação de planilhas Excel)
-- 🧱 **Lombok** habilitado na IDE
+-  **Java 17+**
+-  **Apache POI** (para manipulação de planilhas Excel)
+-  **Lombok** 
 
 ### Passos
 
@@ -69,19 +70,24 @@ Reader → Formatter → Mapper → Domain → Repository → Excel
 
 3. Coloque o extrato CSV dentro da pasta:
    ```bash
-  /data/```
+     /data/```
 
-Exemplo: relatorio.csv
+4. Na classe principal (com.bertolini.app.Main) coloque o nome do arquivo do extrato em FILE_NAME:
+   Ex:
+   ```java
+   String FILE_NAME = "relatorio.csv";```
 
-4. Execute a classe principal:
-com.bertolini.app.Main
+4. Execute a classe principal
 
 5. O arquivo Excel será gerado automaticamente na raiz do projeto:
    InfinitePay_CashFlow.xlsx
 
 ---
 
-📁 Estrutura de pastas
+Estrutura de pastas
+
+```shell
+  $ tree
 src/
  └── main/java/com/bertolini/
       ├── core/                 # Entidades e casos de uso do domínio
@@ -102,46 +108,42 @@ src/
       └── app/                  # Configuração e ponto de entrada
            ├── AppConfig.java
            └── Main.java
+```
 
 ---
 
-🧩 Tecnologias utilizadas
+ Tecnologias utilizadas
 | Tecnologia                                    | Função                                      |
 | --------------------------------------------- | ------------------------------------------- |
-| ☕ **Java 17**                                 | Linguagem base                              |
-| 📘 **Apache POI**                             | Manipulação de planilhas Excel              |
-| 🧱 **Lombok**                                 | Simplificação de código (getters, builders) |
-| 🧼 **Arquitetura Limpa (Clean Architecture)** | Organização modular e desacoplada           |
-| 🧠 **Padrões de projeto**                     | DTO, Mapper, Service Layer                  |
+|  **Java 25**                                | Linguagem base                              |
+|  **Apache POI**                             | Manipulação de planilhas Excel              |
+|  **Lombok**                                 | Simplificação de código (getters, builders) |
+|  **Arquitetura Limpa (Clean Architecture)** | Organização modular e desacoplada           |
+|  **Padrões de projeto**                     | DTO, Mapper, Facade                  |
 
 
 
 ---
-## 🔮 Próximos passos
+## Próximos passos
 
 - [ ] Implementar testes unitários.
 - [ ] Melhorar tratamento de erros e logs.
 - [ ] Adicionar suporte para novos bancos e formatos.
-- [ ] Integrar com interface em **JavaFX**.
+- [ ] Integrar com interface gráfica (front-end) com **JavaFX**.
 - [ ] Implementar agrupamento inteligente de transações (por mês, tipo, categoria).
+- [ ] Implementar suporte para adicionar novos dados em uma planilha já existente
 
 
-## 🧔 Sobre o autor
+## Sobre o autor
 
-Desenvolvido por **Victor Bertolini de Sousa**, estudante de Ciência da Computação e entusiasta de arquitetura de software e inteligência artificial.  
-Apaixonado por transformar ideias complexas em código limpo, modular e escalável.
+Desenvolvido por **Victor Bertolini de Sousa**, estudante de Ciência da Computação na Faculdade Federal de Uberlândia (UFU).
+Apaixonado por todas as etapas do desenvolvimento de soluções que auxiliem pessoas em problemas cotidianos.
+Iniciou esse projeto com fito de desenvolver suas habilidades de programação em um problema de maior escala, permitindo praticar conhecimentos de Clean Architecture, Clean Code, Design Patters e Java.
 
 
-## 🪪 Licença
+## Licença
 
 Este projeto está sob a licença MIT — sinta-se livre para usar e modificar.
-
-
-
-
-
-
-
 
 
 
