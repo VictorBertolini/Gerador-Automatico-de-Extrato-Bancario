@@ -83,6 +83,9 @@ Reader → Formatter → Mapper → Domain → Repository → Excel
    InfinitePay_CashFlow.xlsx
 
 ---
+## Notas 
+Há um 'BankStatement.csv' com dados fictícios, mas toda a formulação do extrato está de acordo com o gerado pela plataforma de serviços financeiros InfinitePay, o arquivo está para servir de testes e visualização do sistema em funcionamento. 
+---
 ### Resultado no Excel:
 ![Resultado Excel](https://github.com/VictorBertolini/Gerador-Automatico-de-Extrato-Bancario/blob/main/images/Excel%20Result.png)
 
