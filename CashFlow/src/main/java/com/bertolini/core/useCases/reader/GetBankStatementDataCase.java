@@ -10,7 +10,7 @@ public class GetBankStatementDataCase {
         this.bankStatementReader = bankStatementReader;
     }
 
-    public ArrayList<String> execute(String fileName) {
-        return bankStatementReader.readTransactions(fileName);
+    public ArrayList<String> execute(String fileName, boolean header) {
+        return bankStatementReader.readTransactions(fileName, header);
     }
 }

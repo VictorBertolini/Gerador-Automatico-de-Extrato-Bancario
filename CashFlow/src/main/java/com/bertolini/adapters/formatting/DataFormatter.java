@@ -5,7 +5,7 @@ import com.bertolini.adapters.dto.TransactionDTO;
 import java.util.ArrayList;
 
 public interface DataFormatter {
-    ArrayList<TransactionDTO> formatAll(ArrayList<String> bankStatementData, String sep);
+    ArrayList<TransactionDTO> formatAll(ArrayList<String> bankStatementData, String sep, boolean useCommaAsAmountSeparator);
 
-    TransactionDTO format(String bankStatementLine, String sep);
+    TransactionDTO format(String bankStatementLine, String sep, boolean useCommaAsAmountSeparator);
 }

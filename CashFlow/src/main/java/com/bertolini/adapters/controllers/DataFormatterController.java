@@ -13,11 +13,11 @@ public class DataFormatterController {
         this.dataFormatter = dataFormatter;
     }
 
-    public ArrayList<TransactionDTO> formatBankStatementTransactions(ArrayList<String> bankStatementData, String sep) {
-        return dataFormatter.formatAll(bankStatementData, sep);
+    public ArrayList<TransactionDTO> formatBankStatementTransactions(ArrayList<String> bankStatementData, String sep, boolean useCommaAsAmountSeparator) {
+        return dataFormatter.formatAll(bankStatementData, sep, useCommaAsAmountSeparator);
     }
 
-    public TransactionDTO formatBankStatementTransaction(String bankStatementData, String sep) {
-        return dataFormatter.format(bankStatementData, sep);
+    public TransactionDTO formatBankStatementTransaction(String bankStatementData, String sep, boolean useCommaAsAmountSeparator) {
+        return dataFormatter.format(bankStatementData, sep, useCommaAsAmountSeparator);
     }
 }
