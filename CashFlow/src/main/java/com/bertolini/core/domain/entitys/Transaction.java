@@ -12,7 +12,7 @@ public class Transaction {
     private String description;
     private String transactionType;
     private BigDecimal amount;
-    private boolean isNegative;
+//    private boolean isNegative;
 
     public Transaction() {
 
@@ -25,16 +25,14 @@ public class Transaction {
         this.description = description;
         this.transactionType = transactionType;
         this.amount = amount;
-        this.isNegative = isNegative;
     }
-    public Transaction(String bank, LocalDate date, LocalTime time, String description, String transactionType, BigDecimal amount, boolean isNegative) {
+    public Transaction(String bank, LocalDate date, LocalTime time, String description, String transactionType, BigDecimal amount) {
         this.bank = bank;
         this.date = date;
         this.time = time;
         this.description = description;
         this.transactionType = transactionType;
         this.amount = amount;
-        this.isNegative = isNegative;
     }
 
     public int getId() {
@@ -63,9 +61,5 @@ public class Transaction {
 
     public BigDecimal getAmount() {
         return amount;
-    }
-
-    public boolean isNegative() {
-        return isNegative;
     }
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class TransactionMapper {
 
     public Transaction toDomain(TransactionDTO dto) {
-        return new Transaction(dto.getBank(), dto.getDate(), dto.getTime(), dto.getDescription(), dto.getTransactionType(), dto.getAmount(), dto.isNegative());
+        return new Transaction(dto.bank(), dto.date(), dto.time(), dto.description(), dto.transactionType(), dto.amount());
     }
 
     public ArrayList<Transaction> toDomain(ArrayList<TransactionDTO> dtos) {

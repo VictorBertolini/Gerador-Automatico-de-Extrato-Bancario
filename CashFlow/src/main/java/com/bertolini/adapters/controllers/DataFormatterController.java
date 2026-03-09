@@ -7,17 +7,17 @@ import com.bertolini.adapters.formatting.DataFormatter;
 import java.util.ArrayList;
 
 public class DataFormatterController {
-    private DataFormatter dataFormatter;
+    private final DataFormatter dataFormatter;
 
     public DataFormatterController(DataFormatter dataFormatter) {
         this.dataFormatter = dataFormatter;
     }
 
-    public ArrayList<TransactionDTO> formatBankStatementTransactions(ArrayList<String> bankStatementData) {
-        return dataFormatter.formatAll(bankStatementData);
+    public ArrayList<TransactionDTO> formatBankStatementTransactions(ArrayList<String> bankStatementData, String sep) {
+        return dataFormatter.formatAll(bankStatementData, sep);
     }
 
-    public TransactionDTO formatBankStatementTransaction(String bankStatementData) {
-        return dataFormatter.format(bankStatementData);
+    public TransactionDTO formatBankStatementTransaction(String bankStatementData, String sep) {
+        return dataFormatter.format(bankStatementData, sep);
     }
 }
