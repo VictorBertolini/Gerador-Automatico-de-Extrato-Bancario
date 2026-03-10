@@ -73,8 +73,7 @@ public class Transaction {
     private String getString() {
         return this.getDate().toString()
                 + "|" + this.getAmount().stripTrailingZeros().toPlainString()
-                + "|" + this.getDescription().trim().toLowerCase()
-                + "|" + this.getTransactionType().trim().toLowerCase();
+                + "|" + this.getDescription().trim().toLowerCase();
     }
 
     private String encrypt(String raw) {
