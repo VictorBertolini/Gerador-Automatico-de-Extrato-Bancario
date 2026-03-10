@@ -21,13 +21,12 @@ public class ExcelTransactionWriter {
             if (row == null) {
                 row = sheet.createRow(i + 3);
             }
+            row.createCell(1).setCellValue(transactionSet.getTransactions().get(i).getId());
+            row.createCell(2).setCellValue(transactionSet.getTransactions().get(i).getBank());
+            row.createCell(3).setCellValue(transactionSet.getTransactions().get(i).getDate().toString());
+            row.createCell(4).setCellValue(transactionSet.getTransactions().get(i).getDescription());
 
-            row.createCell(1).setCellValue(transactionSet.getTransactions().get(i).getBank());
-            row.createCell(2).setCellValue(transactionSet.getTransactions().get(i).getDate().toString());
-            row.createCell(3).setCellValue(transactionSet.getTransactions().get(i).getDescription());
-
-
-            row.createCell(4).setCellValue(transactionSet.getTransactions().get(i).getAmount().doubleValue());
+            row.createCell(5).setCellValue(transactionSet.getTransactions().get(i).getAmount().doubleValue());
         }
     }
 }
