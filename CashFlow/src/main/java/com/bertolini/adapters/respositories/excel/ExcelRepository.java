@@ -10,10 +10,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 public class ExcelRepository implements TransactionRepository {
     String fileName;
-    private final String path = "data/";
+    private final String path = "data\\";
     private Workbook workbook;
     private Sheet sheet;
     private ExcelTransactionWriter excelWriter;
@@ -34,13 +35,29 @@ public class ExcelRepository implements TransactionRepository {
         saveWorkbook(fileName);
     }
 
+    @Override
+    public void saveAll(List<TransactionBatch> transactionBatches) {
+        for (TransactionBatch batch : transactionBatches) {
+            if (batch.getTransactionSet() != null) {
+                initiateSheet(batch.getLabel());
+                initiateWriter();
+                excelWriter.write(batch.getTransactionSet());
+            }
+        }
+        saveWorkbook(fileName); // uma vez só
+    }
+
     private void initiateWorkbook() {
         try {
-            File file = new File(path + fileName);
+            File file = new File(path + fileName + ".xlsx");
+            System.out.println("ENTROU 5");
             if (file.exists() && file.isFile()) {
+                System.out.println("ENTROU 6");
                 this.workbook = new XSSFWorkbook(file);
+                System.out.println("ENTROU");
                 return;
             }
+            System.out.println("CHECKPOINT 1 " + path + fileName + " " + file.exists() + " " + file.isFile());
             this.workbook = new XSSFWorkbook();
         } catch (Exception e) {
             throw new RuntimeException("The xlsx file could not be open or could not be found");

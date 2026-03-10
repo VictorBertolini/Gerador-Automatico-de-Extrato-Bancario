@@ -1,6 +1,6 @@
 package com.bertolini.adapters.controllers;
 
-import com.bertolini.core.useCases.reader.GetBankStatementDataCase;
+import com.bertolini.core.useCases.reader.bankstatement.GetBankStatementDataCase;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,6 @@
 package com.bertolini.adapters.readers;
 
-import com.bertolini.core.useCases.reader.BankStatementReader;
+import com.bertolini.core.useCases.reader.bankstatement.BankStatementReader;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

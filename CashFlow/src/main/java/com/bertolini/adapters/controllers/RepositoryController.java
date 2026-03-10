@@ -5,6 +5,7 @@ import com.bertolini.core.domain.entitys.TransactionSet;
 import com.bertolini.core.useCases.repository.SaveAllTransactionsCase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RepositoryController {
     private SaveAllTransactionsCase saveAllUseCase;
@@ -17,11 +18,7 @@ public class RepositoryController {
         saveAllUseCase.execute(transactionBatch);
     }
 
-    public void saveInPersistence(ArrayList<TransactionBatch> transactionBatches) {
-        for  (TransactionBatch transactionBatch : transactionBatches) {
-            if (transactionBatch.getTransactionSet() != null) {
-                saveAllUseCase.execute(transactionBatch);
-            }
-        }
+    public void saveInPersistence(List<TransactionBatch> transactionBatches) {
+        saveAllUseCase.execute(transactionBatches);
     }
 }

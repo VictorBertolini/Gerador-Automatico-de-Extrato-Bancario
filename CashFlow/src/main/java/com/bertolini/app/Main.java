@@ -23,7 +23,9 @@ public class Main {
     public static void main(String[] args) {
 
 //        String FILE_NAME = "BankStatement.csv";
-        String FILE_NAME = "Nubank_Janeiro.csv";
+//        String FILE_NAME = "Nubank_Janeiro.csv";
+        String FILE_NAME = "Nubank_Fevereiro.csv";
+        String XLSX_FILE_NAME = "Nubank_Statement";
 
         AppConfig config = new AppConfig();
         TransactionSet transactionSet = new TransactionSet();
@@ -42,7 +44,7 @@ public class Main {
         DataFormatter dataFormatter = config.buildDataFormatter(fieldOrder, bankName);
 
         ReaderController readerController = config.buildReaderController();
-        RepositoryController repositoryController = config.buildRepositoryController(transactionSet, "InfinitePay_CashFlow");
+        RepositoryController repositoryController = config.buildRepositoryController(transactionSet, XLSX_FILE_NAME);
         TransactionController transactionController = config.buildTransactionController(transactionSet);
         DataFormatterController dataFormatterController = config.buildDataFormatterController(dataFormatter);
 
