@@ -1,4 +1,4 @@
-package com.bertolini.core.useCases.reader;
+package com.bertolini.core.useCases.reader.bankstatement;
 
 import java.util.ArrayList;
 
