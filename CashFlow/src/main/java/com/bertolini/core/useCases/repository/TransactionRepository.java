@@ -7,4 +7,5 @@ import java.util.List;
 public interface TransactionRepository {
     void save(TransactionBatch transactionBatch);
     void saveAll(List<TransactionBatch> transactionBatches);
+    List<TransactionBatch> getAll();
 }

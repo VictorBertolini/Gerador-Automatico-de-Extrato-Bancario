@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TransactionBatch {
+    private String label;
     private int month;
     private int year;
     private TransactionSet transactionSet;

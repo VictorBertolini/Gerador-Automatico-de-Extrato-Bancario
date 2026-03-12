@@ -44,20 +44,21 @@ public class ExcelRepository implements TransactionRepository {
                 excelWriter.write(batch.getTransactionSet());
             }
         }
-        saveWorkbook(fileName); // uma vez só
+        saveWorkbook(fileName);
+    }
+
+    @Override
+    public List<TransactionBatch> getAll() {
+        return List.of();
     }
 
     private void initiateWorkbook() {
         try {
             File file = new File(path + fileName + ".xlsx");
-            System.out.println("ENTROU 5");
             if (file.exists() && file.isFile()) {
-                System.out.println("ENTROU 6");
                 this.workbook = new XSSFWorkbook(file);
-                System.out.println("ENTROU");
                 return;
             }
-            System.out.println("CHECKPOINT 1 " + path + fileName + " " + file.exists() + " " + file.isFile());
             this.workbook = new XSSFWorkbook();
         } catch (Exception e) {
             throw new RuntimeException("The xlsx file could not be open or could not be found");
@@ -68,7 +69,6 @@ public class ExcelRepository implements TransactionRepository {
         Sheet sheet = workbook.getSheet(sheetName);
 
         if (sheet == null) {
-
             sheet = workbook.createSheet(sheetName);
             new ExcelSheetStyler(workbook, sheet);
         }

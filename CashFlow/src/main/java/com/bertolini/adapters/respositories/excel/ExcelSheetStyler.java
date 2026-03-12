@@ -60,7 +60,7 @@ public class ExcelSheetStyler {
     }
 
     private void applyHeaderStyle() {
-        String[] text = {"Bank", "Date", "Description", "Amount"};
+        String[] text = {"Id","Bank", "Date", "Description", "Amount"};
         CellStyle style = decorator.headerStyle();
 
         for (int i = 0; i < text.length; i++) {

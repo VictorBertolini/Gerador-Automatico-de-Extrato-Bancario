@@ -24,7 +24,7 @@ public class SplitTransactionSetByMonthCase {
             String hashKey = months[monthValue] + " " + yearValue;
 
             if (!map.containsKey(hashKey)) {
-                map.put(hashKey, new TransactionBatch(hashKey));
+                map.put(hashKey, new TransactionBatch(hashKey, monthValue, yearValue, new TransactionSet()));
             }
 
             map.get(months[monthValue] + " " + yearValue).getTransactionSet().addTransaction(transaction);
