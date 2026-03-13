@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -53,15 +54,22 @@ public class ExcelRepository implements TransactionRepository {
     }
 
     private void initiateWorkbook() {
-        try {
-            File file = new File(path + fileName + ".xlsx");
-            if (file.exists() && file.isFile()) {
-                this.workbook = new XSSFWorkbook(file);
+        String filePath = path + fileName + ".xlsx";
+        File file = new File(filePath);
+
+        if (file.exists() && file.isFile()) {
+            try (FileInputStream fis = new FileInputStream(file)) {
+                this.workbook = new XSSFWorkbook(fis);
                 return;
+            } catch (Exception e) {
+                throw new RuntimeException("Não foi possível abrir: " + filePath);
             }
+        }
+
+        try {
             this.workbook = new XSSFWorkbook();
         } catch (Exception e) {
-            throw new RuntimeException("The xlsx file could not be open or could not be found");
+            throw new RuntimeException("Não foi possível criar workbook");
         }
     }
 
@@ -83,6 +91,7 @@ public class ExcelRepository implements TransactionRepository {
     private void saveWorkbook(String fileName) {
         try (FileOutputStream fileOut = new FileOutputStream(path + fileName + ".xlsx")) {
             workbook.write(fileOut);
+            workbook.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
