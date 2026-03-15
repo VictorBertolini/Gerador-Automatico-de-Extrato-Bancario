@@ -8,6 +8,7 @@ import com.bertolini.adapters.formatting.CsvFormatter;
 import com.bertolini.adapters.formatting.DataFormatter;
 import com.bertolini.adapters.readers.CsvReader;
 import com.bertolini.adapters.respositories.excel.ExcelRepository;
+import com.bertolini.adapters.respositories.excel.style.ExcelTheme;
 import com.bertolini.adapters.services.amount.AmountCleaner;
 import com.bertolini.adapters.services.amount.AmountFormatterService;
 import com.bertolini.adapters.services.date.DateFormatDetector;
@@ -31,18 +32,18 @@ public class AppConfig {
         return controller;
     }
 
-    public RepositoryController buildRepositoryController(TransactionSet transactionSet, String fileName) {
-        TransactionRepository repository = new ExcelRepository(fileName);
+    public RepositoryController buildRepositoryController(String fileName, TransactionSet transactionSet) {
+        ExcelTheme theme = ExcelTheme.Builder.defaultTheme();
+        TransactionRepository repository = new ExcelRepository(fileName, theme);
         SaveAllTransactionsCase saveAllCase = new SaveAllTransactionsCase(repository);
-        RepositoryController controller = new RepositoryController(transactionSet, saveAllCase);
-        return controller;
+        return new RepositoryController(transactionSet, saveAllCase);
     }
 
     public TransactionController buildTransactionController(TransactionSet transactionSet) {
         CreateTransactionCase createCase = new CreateTransactionCase(transactionSet);
         RemoveTransactionCase removeCase = new RemoveTransactionCase(transactionSet);
         SplitTransactionSetByMonthCase groupCase = new SplitTransactionSetByMonthCase();
-        TransactionController  controller = new TransactionController(createCase, removeCase, groupCase);
+        TransactionController controller = new TransactionController(createCase, removeCase, groupCase);
         return controller;
     }
 

@@ -50,7 +50,7 @@ public class Main {
     public static void configControllers(AppConfig config, TransactionSet transactionSet) {
         dataFormatter = config.buildDataFormatter(fieldOrder, bankName);
         readerController = config.buildReaderController();
-        repositoryController = config.buildRepositoryController(transactionSet, XLSX_FILE_NAME);
+        repositoryController = config.buildRepositoryController(XLSX_FILE_NAME, transactionSet);
         transactionController = config.buildTransactionController(transactionSet);
         dataFormatterController = config.buildDataFormatterController(dataFormatter);
     }
