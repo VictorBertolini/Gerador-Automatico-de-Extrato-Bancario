@@ -20,19 +20,27 @@ public class AmountFormatterService {
 
     private String changeToComma(String amount) {
         int len = amount.length();
+        char signal;
 
         if (len <= 2)
             return amount;
 
-        char signal = amount.charAt(len - 3);
-        if (signal == ',') {
-            StringBuilder sb = new StringBuilder(amount);
-            sb.setCharAt(len - 3, '.');
+        int commaIndex = amount.lastIndexOf(',');
+        int dotIndex = amount.lastIndexOf('.');
+        int index = Math.max(commaIndex, dotIndex);
 
-            return sb.toString();
-        } else if (signal == '.') {
-            return amount.replaceAll(",", "");
-        }
-        throw new RuntimeException("Cannot identify the " + signal + " symbol");
+        if (commaIndex > dotIndex)
+            signal = ',';
+        else
+            signal = '.';
+
+//        System.out.println(amount + " -> " + signal);
+
+        if (signal == ',') {
+            return  amount.replaceAll("\\.", "")
+                    .replaceAll(",", ".");
+
+        } else return amount.replaceAll(",", "");
+
     }
 }

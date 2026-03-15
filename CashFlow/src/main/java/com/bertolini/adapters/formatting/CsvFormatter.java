@@ -37,7 +37,13 @@ public class CsvFormatter implements DataFormatter {
 
     @Override
     public TransactionDTO format(String bankStatementLine, String sep, boolean useCommaAsAmountSeparator) {
-        String[] splitedLine = bankStatementLine.split(sep);
+        String[] splitedLine;
+        if (useCommaAsAmountSeparator && sep.equals(",")) {
+            // Split by comma, but if find something between " " just ignore commas inside
+            splitedLine = bankStatementLine.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+        } else {
+            splitedLine = bankStatementLine.split(sep);
+        }
 
         HashMap<String, String> fieldMap = new HashMap<>();
         for (int i = 0; i < fieldOrder.size(); i++) {
