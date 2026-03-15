@@ -81,6 +81,9 @@ ExcelTheme theme = new ExcelTheme.Builder()
 
 ```
 
+### Tela do Excel
+![Excel Result](images/Result%20Excel.png)
+
 ---
 
 ## Primeiros Passos
