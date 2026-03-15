@@ -2,7 +2,7 @@ package com.bertolini.adapters.respositories.excel;
 
 import com.bertolini.adapters.respositories.excel.style.ExcelTheme;
 import com.bertolini.adapters.respositories.excel.style.ExcelSheetStyler;
-import com.bertolini.adapters.respositories.test.ExcelTransactionWriter;
+import com.bertolini.adapters.respositories.excel.style.ExcelTransactionWriter;
 import com.bertolini.core.domain.entitys.TransactionBatch;
 import com.bertolini.core.useCases.repository.TransactionRepository;
 import org.apache.poi.ss.usermodel.Sheet;

@@ -1,8 +1,6 @@
 package com.bertolini.adapters.respositories.excel.style;
 
 import com.bertolini.adapters.respositories.excel.structure.Cell;
-import com.bertolini.adapters.respositories.test.CellDecorator;
-import com.bertolini.adapters.respositories.test.ExcelCellWriter;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
