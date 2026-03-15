@@ -15,10 +15,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
-    static String FILE_NAME = "Nubank_Fevereiro.csv";
+    static String FILE_NAME = "infinitepay_2025_e_2026.csv";
+//    static String FILE_NAME = "Nubank_Dezembro.csv";
     static String XLSX_FILE_NAME = "Nubank_Statement";
-    static ArrayList<String> fieldOrder = new ArrayList<>(Arrays.asList("date", "amount", null, "description"));
-    static String bankName = "Nubank";
+//    static ArrayList<String> fieldOrder = new ArrayList<>(Arrays.asList("date", "amount", null, "description")); // Nubank
+    static ArrayList<String> fieldOrder = new ArrayList<>(Arrays.asList("date", "time", "type", "description", null, "amount")); // Infinite
+//    static String bankName = "Nubank";
+    static String bankName = "InfinitePay";
     static String sep = ",";
     static DataFormatter dataFormatter;
 
@@ -50,7 +53,7 @@ public class Main {
     public static void configControllers(AppConfig config, TransactionSet transactionSet) {
         dataFormatter = config.buildDataFormatter(fieldOrder, bankName);
         readerController = config.buildReaderController();
-        repositoryController = config.buildRepositoryController(XLSX_FILE_NAME, transactionSet);
+        repositoryController = config.buildRepositoryController(XLSX_FILE_NAME);
         transactionController = config.buildTransactionController(transactionSet);
         dataFormatterController = config.buildDataFormatterController(dataFormatter);
     }

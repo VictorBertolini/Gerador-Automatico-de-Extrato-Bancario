@@ -1,10 +1,15 @@
 package com.bertolini.adapters.respositories.excel;
 
+import com.bertolini.adapters.respositories.excel.service.LastExcelRowGetter;
+import com.bertolini.adapters.respositories.excel.structure.Cell;
+import com.bertolini.adapters.respositories.excel.style.ExcelLayout;
 import com.bertolini.adapters.respositories.excel.style.ExcelTheme;
 import com.bertolini.adapters.respositories.excel.style.ExcelSheetStyler;
 import com.bertolini.adapters.respositories.excel.style.ExcelTransactionWriter;
 import com.bertolini.core.domain.entitys.TransactionBatch;
 import com.bertolini.core.useCases.repository.TransactionRepository;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -12,7 +17,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ExcelRepository implements TransactionRepository {
     private final String fileName;
@@ -20,6 +27,7 @@ public class ExcelRepository implements TransactionRepository {
     private final ExcelTheme theme;
     private Workbook workbook;
     private ExcelTransactionWriter excelWriter;
+    private LastExcelRowGetter lastExcelRowGetter = new LastExcelRowGetter();
 
     public ExcelRepository(String fileName, ExcelTheme theme) {
         this.fileName = fileName;
@@ -42,11 +50,32 @@ public class ExcelRepository implements TransactionRepository {
                 continue;
             save(batch);
         }
+        saveWorkbook();
+        closeWorkbook();
     }
 
     @Override
-    public List<TransactionBatch> getAll() {
-        return List.of(); // implementar na próxima etapa
+    public Set<String> getIdsByLabel(String label) {
+        Sheet sheet = workbook.getSheet(label);
+        if (sheet == null) return Set.of();
+
+        Set<String> transactionIds = new HashSet<>();
+        int idCol = ExcelLayout.START_DATA_FILL.column();
+        int startRow = ExcelLayout.START_DATA_FILL.row();
+        Cell limit = lastExcelRowGetter.getLastRowNumber(sheet);
+
+        for (int i = startRow; i < limit.row(); i++) {
+            Row row = sheet.getRow(i);
+            if (row == null)
+                break;
+
+            org.apache.poi.ss.usermodel.Cell cell = row.getCell(idCol);
+            if (cell == null || cell.getCellType() == CellType.BLANK)
+                break;
+
+            transactionIds.add(cell.getStringCellValue());
+        }
+        return transactionIds;
     }
 
     private void initiateWorkbook() {
@@ -79,9 +108,16 @@ public class ExcelRepository implements TransactionRepository {
     private void saveWorkbook() {
         try (FileOutputStream fileOut = new FileOutputStream(path + fileName + ".xlsx")) {
             workbook.write(fileOut);
-            workbook.close();
         } catch (Exception e) {
             throw new RuntimeException("Error in saving: " + e.getMessage());
+        }
+    }
+
+    private void closeWorkbook() {
+        try {
+            workbook.close();
+        } catch (Exception e) {
+            throw new RuntimeException("Error in closing: " + e.getMessage());
         }
     }
 }

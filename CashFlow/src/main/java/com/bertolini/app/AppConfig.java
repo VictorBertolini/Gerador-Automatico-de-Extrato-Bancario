@@ -32,11 +32,11 @@ public class AppConfig {
         return controller;
     }
 
-    public RepositoryController buildRepositoryController(String fileName, TransactionSet transactionSet) {
+    public RepositoryController buildRepositoryController(String fileName) {
         ExcelTheme theme = ExcelTheme.Builder.defaultTheme();
         TransactionRepository repository = new ExcelRepository(fileName, theme);
         SaveAllTransactionsCase saveAllCase = new SaveAllTransactionsCase(repository);
-        return new RepositoryController(transactionSet, saveAllCase);
+        return new RepositoryController(repository, saveAllCase);
     }
 
     public TransactionController buildTransactionController(TransactionSet transactionSet) {
