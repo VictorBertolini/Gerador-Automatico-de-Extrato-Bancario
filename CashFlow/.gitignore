@@ -3,3 +3,5 @@
 target/
 .idea/
 *.xlsx
+
+!/data/BankStatementExample.csv
