@@ -15,17 +15,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
-    static String FILE_NAME = "infinitepay_2025_e_2026.csv";
-//    static String FILE_NAME = "Nubank_Dezembro.csv";
-    static String XLSX_FILE_NAME = "Nubank_Statement";
-//    static ArrayList<String> fieldOrder = new ArrayList<>(Arrays.asList("date", "amount", null, "description")); // Nubank
-    static ArrayList<String> fieldOrder = new ArrayList<>(Arrays.asList("date", "time", "type", "description", null, "amount")); // Infinite
-//    static String bankName = "Nubank";
-    static String bankName = "InfinitePay";
-    static String sep = ",";
-    static DataFormatter dataFormatter;
 
-    // Controllers
+    // =========================================================
+    //   BANK CONFIGURATION — edit here to change the import
+    // =========================================================
+
+    static final String CSV_FILE          = "BankStatementExample.csv";
+    static final String XLSX_FILE         = "CashFlowExample";
+    static final String BANK_NAME         = "InfinitePay";
+    static final String CSV_SEPARATOR     = ",";
+    static final boolean SKIP_HEADER      = true;
+    static final boolean COMMA_AS_DECIMAL = true;
+
+    // Field order in your CSV — use null to skip a column
+    // Available fields: "date", "time", "type", "description", "amount"
+    static final ArrayList<String> FIELD_ORDER = new ArrayList<>(
+            Arrays.asList("date", "time", "type", "description", null, "amount") // InfinitePay
+            //  Arrays.asList("date", "amount", null, "description")                 // Nubank
+    );
+
+    // =========================================================
+    //   Controllers — no need to touch below this line
+    // =========================================================
+
     static ReaderController readerController;
     static RepositoryController repositoryController;
     static TransactionController transactionController;
@@ -36,26 +48,26 @@ public class Main {
         TransactionSet transactionSet = new TransactionSet();
         configControllers(config, transactionSet);
 
-        // Logic of the program
-        TransactionMapper mapper = new TransactionMapper();
-        BankIntegrationService bankIntegrationService = new BankIntegrationService(readerController, dataFormatterController, mapper);
+        BankIntegrationService bankIntegrationService = new BankIntegrationService(
+                readerController, dataFormatterController, new TransactionMapper()
+        );
 
-        ArrayList<Transaction> transactions = bankIntegrationService.importBankTransactions(FILE_NAME, true, sep, true);
+        ArrayList<Transaction> transactions = bankIntegrationService
+                .importBankTransactions(CSV_FILE, SKIP_HEADER, CSV_SEPARATOR, COMMA_AS_DECIMAL);
+
         transactionSet.addTransactions(transactions);
 
+        ArrayList<TransactionBatch> batches = transactionController
+                .splitTransactionsByMonth(transactionSet);
 
-        ArrayList<TransactionBatch> transactionBatches = transactionController.splitTransactionsByMonth(transactionSet);
-
-        // Save
-        repositoryController.saveInPersistence(transactionBatches);
+        repositoryController.saveInPersistence(batches);
     }
 
-    public static void configControllers(AppConfig config, TransactionSet transactionSet) {
-        dataFormatter = config.buildDataFormatter(fieldOrder, bankName);
-        readerController = config.buildReaderController();
-        repositoryController = config.buildRepositoryController(XLSX_FILE_NAME);
-        transactionController = config.buildTransactionController(transactionSet);
-        dataFormatterController = config.buildDataFormatterController(dataFormatter);
+    private static void configControllers(AppConfig config, TransactionSet transactionSet) {
+        DataFormatter dataFormatter     = config.buildDataFormatter(FIELD_ORDER, BANK_NAME);
+        readerController                = config.buildReaderController();
+        repositoryController            = config.buildRepositoryController(XLSX_FILE);
+        transactionController           = config.buildTransactionController(transactionSet);
+        dataFormatterController         = config.buildDataFormatterController(dataFormatter);
     }
-
 }
