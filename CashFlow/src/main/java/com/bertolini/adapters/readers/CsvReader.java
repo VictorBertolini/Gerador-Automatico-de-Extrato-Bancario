@@ -11,7 +11,7 @@ import java.util.List;
 public class CsvReader implements BankStatementReader {
 
     @Override
-    public ArrayList<String> readTransactions(String fileName, boolean header){
+    public ArrayList<String> readTransactions(String fileName, boolean hasHeader){
         String pathLocation = "data/";
         Path path = Paths.get(pathLocation + fileName);
         List<String> transactionData;
@@ -22,7 +22,7 @@ public class CsvReader implements BankStatementReader {
             throw new RuntimeException("Error reading file " + pathLocation + fileName + ".csv");
         }
 
-        if (header)
+        if (hasHeader)
             transactionData.removeFirst();
 
         return new  ArrayList<>(transactionData);

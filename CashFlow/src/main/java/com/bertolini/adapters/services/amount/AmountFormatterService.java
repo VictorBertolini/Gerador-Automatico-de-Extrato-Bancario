@@ -14,7 +14,7 @@ public class AmountFormatterService {
         String amountStr = amountCleaner.clean(amount);
 
         amountStr = changeToComma(amountStr);
-
+        System.out.println(amountStr);
         return new BigDecimal(amountStr);
     }
 

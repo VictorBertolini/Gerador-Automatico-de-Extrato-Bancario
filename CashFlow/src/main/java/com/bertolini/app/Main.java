@@ -24,7 +24,7 @@ public class Main {
     static final String XLSX_FILE         = "CashFlowExample";
     static final String BANK_NAME         = "InfinitePay";
     static final String CSV_SEPARATOR     = ",";
-    static final boolean SKIP_HEADER      = true;
+    static final boolean HAS_HEADER      = true;
     static final boolean COMMA_AS_DECIMAL = true;
 
     // Field order in your CSV — use null to skip a column
@@ -52,8 +52,7 @@ public class Main {
                 readerController, dataFormatterController, new TransactionMapper()
         );
 
-        ArrayList<Transaction> transactions = bankIntegrationService
-                .importBankTransactions(CSV_FILE, SKIP_HEADER, CSV_SEPARATOR, COMMA_AS_DECIMAL);
+        ArrayList<Transaction> transactions = bankIntegrationService.importBankTransactions(CSV_FILE, HAS_HEADER, CSV_SEPARATOR, COMMA_AS_DECIMAL);
 
         transactionSet.addTransactions(transactions);
 

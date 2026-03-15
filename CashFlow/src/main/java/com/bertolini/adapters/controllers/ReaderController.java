@@ -11,7 +11,7 @@ public class ReaderController {
         this.getBankTransactions = getBankTransactions;
     }
 
-    public ArrayList<String> getBankStatementData(String fileName, boolean header) {
-        return getBankTransactions.execute(fileName, header);
+    public ArrayList<String> getBankStatementData(String fileName, boolean hasHeader) {
+        return getBankTransactions.execute(fileName, hasHeader);
     }
 }

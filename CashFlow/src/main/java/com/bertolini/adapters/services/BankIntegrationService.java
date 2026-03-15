@@ -19,8 +19,8 @@ public class BankIntegrationService {
         this.mapper = mapper;
     }
 
-    public ArrayList<Transaction> importBankTransactions(String fileName, boolean header, String sep, boolean useCommaAsAmountSeparator) {
-        ArrayList<String> data = readerController.getBankStatementData(fileName, header);
+    public ArrayList<Transaction> importBankTransactions(String fileName, boolean hasHeader, String sep, boolean useCommaAsAmountSeparator) {
+        ArrayList<String> data = readerController.getBankStatementData(fileName, hasHeader);
         ArrayList<TransactionDTO> dtos = dataFormatterController.formatBankStatementTransactions(data, sep, useCommaAsAmountSeparator);
         return mapper.toDomain(dtos);
     }

@@ -13,7 +13,6 @@ import java.util.Set;
 public class RepositoryController {
     private SaveAllTransactionsCase saveAllUseCase;
     private final FilterDuplicateTransactionCase filterCase;
-//    private GetCashFlowTransactionsId getCashFlowTransactionsId;
     private TransactionRepository repository;
 
     public RepositoryController(TransactionRepository repository, SaveAllTransactionsCase saveAllUseCase) {
@@ -40,7 +39,4 @@ public class RepositoryController {
         saveAllUseCase.execute(filteredBatches);
     }
 
-//    public List<TransactionBatch> getCashFlowTransactions() {
-//        return getCashFlowTransactionsId.execute();
-//    }
 }
